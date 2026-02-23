@@ -1,0 +1,15 @@
+<div class="meta-header">
+  <div class="meta-left">
+    <h2 class="comp-title">{{ meta()?.title || 'Komponente' }}</h2>
+    <p class="comp-desc">{{ meta()?.description }}</p>
+  </div>
+
+  <div class="meta-right">
+    @if (meta()?.author?.username; as username) {
+      <div class="author-tag">
+        <span class="label">contributed by</span>
+        <span class="username">&#64;{{ username }}</span>
+      </div>
+    }
+  </div>
+</div>

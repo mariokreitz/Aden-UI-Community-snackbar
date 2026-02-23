@@ -1,108 +1,148 @@
-<div align="center">
+# ADEN UI WORKBENCH
 
-<img src="https://adenui.com/favicon.ico" alt="Aiden UI" width="80" height="80" />
+The **Aden UI Workbench** is a specialized laboratory for Angular
+developers to build, test, and preview components in a native Aden UI
+environment.\
+This project ensures that every community contribution aligns with
+architectural standards and design language before it gets featured on
+the official platform.
 
-# AIDEN UI
+## Table of Contents
+-   [Prerequisites](#prerequisites)
+-   [Quickstart](#quickstart)
+-   [Project Structure](#project-structure)
+-   [Usage & Workflow](#usage--workflow)
+-   [Technical Requirements](#technical-requirements)
+-   [Submission Process](#submission-process)
+-   [Author](#author)
 
-**Curated Angular Component Library**  
-Built from real projects. Not from tutorials.
 
-[Aden UI Website](https://adenui.com)
-</div>
+## Prerequisites
 
----
+Before you start crafting, ensure you have the following installed:
+-   **Node.js**
+-   **Git**
 
-## Philosophy
 
-Aiden UI exists to eliminate repeated work in Angular projects.
+## Quickstart
 
-Over time, reusable patterns and clean abstractions emerged from real-world development.  
-This library collects those components and structures them properly.
+### 1. Fork the Repository
 
-It is **curated**, not community-driven.  
-Every component is reviewed and must meet strict architectural standards.
+Click the **Fork** button at the top right of the GitHub page to create
+your own copy.
 
----
-
-## Core Principles
-
-Every component must:
-
-- Be `standalone: true`
-- Use Angular Signals (`input()`, `computed()`)
-- Follow clean Dependency Injection practices
-- Avoid external UI frameworks (no Bootstrap, no jQuery)
-- Be compatible with zoneless Angular applications
-- Prioritize clarity over abstraction
-
-No overengineering.  
-No unnecessary dependencies.  
-Only maintainable Angular code.
-
----
-
-## What This Repository Contains
-
-- Reusable Angular components
-- Structured developer guides
-- Strict contribution standards
-
----
-
-## Required Folder Structure
-
-Every component must follow this exact structure:
-```
-components/
-└── example/
-    ├── README.md
-    ├── example.component.ts
-    ├── example.component.html
-    └── example.component.scss
+### 2. Clone your Fork
+``` bash
+git clone https://github.com/YOUR_USERNAME/aden-ui-community.git
+cd aden-ui-community
 ```
 
-No additional files.  
-No project configuration.  
-No hidden dependencies.
+### 3. Install Dependencies
+``` bash
+npm install
+```
 
-Each folder must be self-contained.
+### 4. Launch the Workbench
+``` bash
+ng s -o
+```
 
----
+Access the environment at:
+    http://localhost:4200
 
-## Component Documentation Requirements
 
-Each `example/README.md` must include:
+## Project Structure
+This project is structured to keep the workbench engine separate from
+your creative work.
 
-- Short description
-- Intended use case
-- Required Angular version (if relevant)
-- Required dependencies (if any)
-- Setup instructions (only if necessary)
-- Simple usage example
-- Author credit
+    |-- 📁 src/app/
+    |   |-- 📁 contributions/      <-- YOUR WORKSPACE (Focus here)
+    |   |   |-- 📁 my-contribution/
+    |   |   |   |-- my-contribution.component.ts
+    |   |   |   |-- my-contribution.component.html
+    |   |   |   |-- my-contribution.component.scss
+    |   |
+    |   |-- 📁 pages/             
+    |   |    |-- 📁 workbench/     <-- Workbench register your Component
+    |   |    |-- 📁 home/
+    |   |
+    |   |-- 📁 shared/             <-- Shared Workbench Components
+    |   |-- 📄 app.routes.ts       <-- Routing configuration
+    |-- 📄 angular.json            <-- Build & PrismJS configuration
+    |-- 📄 package.json            <-- Dependencies
 
-Keep it concise.  
-Keep it practical.
 
----
+## Usage & Workflow
 
-## Contribution Policy
+### 1. Developing your Component
 
-Aiden UI is curated.
+Open:
 
-Every submission is reviewed for:
+    src/app/contributions/my-contribution/
 
-- Performance
-- Accessibility (ARIA compliance)
-- Reusability
-- Architectural clarity
-- Code quality
+This folder is pre-configured with the `<app-ui-playground>` wrapper.\
+Edit the files and see your changes instantly in **Lab Mode**
+(`/workbench`).
 
-If it aligns with the vision, it becomes part of the library.
+### 2. Handling Metadata
 
----
+Inside your component's `.ts` file, you must fill out the `meta`
+object.\
+This data generates the header in the playground:
+
+-   **Title** -- Name of your component\
+-   **Description** -- Short explanation of its purpose\
+-   **Username** -- Your Aden UI username for credits
+
+### 3. Multiple Components
+
+If you want to submit multiple elements, generate a new component:
+
+``` bash
+ng generate component contributions/your-component-name
+```
+
+To preview it, swap the selector in:
+
+    src/app/pages/workbench/workbench.component.html
+
+
+## Technical Requirements
+
+To ensure your component is accepted for the Aden UI library, it must follow these rules:
+
+- **Standalone**: All components must be `standalone: true`
+- **Signals**: Use Angular Signals for state management (`input()`, `computed()`, `signal()`)
+- **Playground**: The component template must be wrapped in `<app-ui-playground>`
+- **Required Workbench Variables**: The variables `codeHtml`, `codeScss`, `codeTs`, and `installCode` must be filled with the final, production-ready code. These are used to generate the live preview, provide copy-paste snippets for other developers, and generate installation instructions. They must not be left empty or contain placeholder content.
+
+
+## Submission Process
+
+Once your component is polished and ready:
+
+### 1. Commit your changes
+
+``` bash
+git add .
+git commit -m "feat: added [component name]"
+```
+
+### 2. Push to your Fork
+
+``` bash
+git push origin main
+```
+
+### 3. Submit URL
+
+Copy the URL of your GitHub Fork and paste it into the contribution form on:
+
+    https://adenui.com/contribution
+
 
 ## Author
-Adrian Enßlin  
-[Aden UI Website](https://adenui.com) <br>
-[GitHub](https://github.com/EnsslinAdrian)
+
+**Adrian Enßlin**\
+Creator of Aden UI
+

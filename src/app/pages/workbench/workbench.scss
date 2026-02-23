@@ -1,0 +1,71 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+.lab-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #000;
+}
+
+.lab-nav {
+  height: 48px;
+  background-color: #09090b;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 10;
+
+  .back-btn {
+    color: var(--text-muted);
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .lab-indicator {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #22c55e; // Green for "Active"
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
+  }
+}
+
+.lab-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+}

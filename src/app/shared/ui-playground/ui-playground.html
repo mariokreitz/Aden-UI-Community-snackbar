@@ -1,0 +1,44 @@
+<div class="playground-container">
+  <app-ui-playground-header [meta]="meta()"></app-ui-playground-header>
+
+  <div class="playground-body">
+    <div class="tabs-nav">
+      <div class="tab-group">
+        <button class="tab-btn" [class.active]="activeTab() === 'preview'" (click)="setTab('preview')">
+          Preview
+        </button>
+        <button class="tab-btn" [class.active]="activeTab() === 'code'" (click)="setTab('code')">
+          Code
+        </button>
+        @if (installCode()) {
+        <button class="tab-btn" [class.active]="activeTab() === 'install'" (click)="setTab('install')">
+          Install
+        </button>
+        }
+      </div>
+    </div>
+
+    <div class="viewport">
+      @if (activeTab() === 'preview') {
+      <div class="preview-canvas">
+        <ng-content></ng-content>
+      </div>
+      }
+
+      @if (activeTab() === 'code' || activeTab() === 'install') {
+      <div class="code-section">
+        @if (activeTab() === 'code') {
+        <div class="sub-nav">
+          <button (click)="setLang('markup')" [class.active]="activeLang() === 'markup'">HTML</button>
+          <button (click)="setLang('scss')" [class.active]="activeLang() === 'scss'">SCSS</button>
+          <button (click)="setLang('typescript')" [class.active]="activeLang() === 'typescript'">TS</button>
+        </div>
+        }
+
+        <app-code-highlight [code]="currentCodeDisplay()" [language]="currentLanguage()">
+        </app-code-highlight>
+      </div>
+      }
+    </div>
+  </div>
+</div>
