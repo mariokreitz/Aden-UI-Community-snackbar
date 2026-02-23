@@ -1,0 +1,21 @@
+.starter-box {
+  text-align: center;
+
+  h1 {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--text-muted);
+    font-size: 16px;
+
+    code {
+      background: var(--bg-hover);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--primary-white);
+    }
+  }
+}
