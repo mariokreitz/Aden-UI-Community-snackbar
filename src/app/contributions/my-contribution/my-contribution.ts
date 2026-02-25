@@ -1,6 +1,29 @@
+/*
+ * MyContribution Component - Snackbar Demo & API
+ * ------------------------------------------------
+ * This file demonstrates a reusable, configurable Snackbar component for Angular using the Signal API.
+ * It includes:
+ *   - Type definitions for snackbar configuration and state
+ *   - A service for managing snackbar state and actions
+ *   - Component logic for displaying and interacting with the snackbar
+ *   - Usage examples for all snackbar types
+ *
+ * Author: mario-kreitz
+ * Date: 2026-02-25
+ *
+ * Contribution Guidelines:
+ * - All types, interfaces, classes, and public methods must be documented with JSDoc.
+ * - Example usage and extension points should be clearly described.
+ * - No business logic should be changed in documentation PRs.
+ */
+
 import { Component, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { UiPlayground } from '../../shared/ui-playground/ui-playground';
 
+/**
+ * Demo component for the Snackbar UI pattern.
+ * Provides playground controls and usage examples for the snackbar service/component.
+ */
 @Component({
     selector: 'app-my-contribution',
     imports: [ UiPlayground ],
@@ -8,6 +31,9 @@ import { UiPlayground } from '../../shared/ui-playground/ui-playground';
     styleUrl: './my-contribution.scss',
 })
 export class MyContribution {
+    /**
+     * Metadata for the contribution playground.
+     */
     meta = {
         title: 'Snackbar',
         description: 'Your component description goes here. Explain what it does and how it can be used.',
@@ -15,6 +41,9 @@ export class MyContribution {
             username: 'mario-kreitz',
         },
     };
+    /**
+     * Example HTML code for the snackbar component.
+     */
     codeHtml = `
     @if (snackbar()) {
 \t\t\t<div [class.bottom]="position() === 'bottom'"
@@ -71,6 +100,9 @@ export class MyContribution {
 \t\t\t</div>
 \t\t}
     `;
+    /**
+     * Example SCSS code for the snackbar component.
+     */
     codeScss = `
 :host {
   --aden-bg: #0f0f0f;
@@ -183,6 +215,9 @@ export class MyContribution {
 
 
 `;
+    /**
+     * Example TypeScript code for the snackbar component and service.
+     */
     codeTs = `
 import { Component, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 
@@ -275,17 +310,42 @@ export class SnackbarService {
     }
 }
     `;
+    /**
+     * Example installation instructions (if any).
+     */
     installCode = ``;
+
+    /**
+     * Signal for snackbar duration (ms).
+     */
     public readonly duration: WritableSignal<number> = signal(3000);
+    /**
+     * Signal for snackbar position ('top' | 'bottom').
+     */
     public readonly position: WritableSignal<SnackbarPosition> = signal<SnackbarPosition>('bottom');
+    /**
+     * Signal for whether the snackbar is dismissible.
+     */
     public readonly dismissible: WritableSignal<boolean> = signal(true);
+    /**
+     * Injected snackbar service instance.
+     */
     private readonly snackbarService: SnackbarService = inject(SnackbarService);
+    /**
+     * Signal for current snackbar data (null if hidden).
+     */
     public readonly snackbar: Signal<SnackbarData | null> = this.snackbarService.snackbar;
 
+    /**
+     * Dismisses the currently visible snackbar.
+     */
     public dismissSnackbar() {
         this.snackbarService.dismiss();
     }
 
+    /**
+     * Calls the snackbar's action callback (if present) and dismisses it.
+     */
     public undoSnackbar() {
         const snackbar: SnackbarData | null = this.snackbarService.snackbar();
         if (snackbar?.actionCallback) {
@@ -294,6 +354,10 @@ export class SnackbarService {
         this.snackbarService.dismiss();
     }
 
+    /**
+     * Sets the snackbar duration from an input event.
+     * @param event Input event from a number field
+     */
     public setDuration(event: Event) {
         const input = event.target as HTMLInputElement;
         const value = Number(input.value);
@@ -302,6 +366,10 @@ export class SnackbarService {
         }
     }
 
+    /**
+     * Sets the snackbar position from a select event.
+     * @param event Change event from a select field
+     */
     public setPosition(event: Event) {
         const select = event.target as HTMLSelectElement;
         const value = select.value as SnackbarPosition;
@@ -310,10 +378,16 @@ export class SnackbarService {
         }
     }
 
+    /**
+     * Toggles the dismissible state of the snackbar.
+     */
     public setDismissible() {
         this.dismissible.update(pev => !pev);
     }
 
+    /**
+     * Shows a success snackbar with current settings.
+     */
     public showSuccess() {
         this.snackbarService.showSuccess(
           'This is a success message!',
@@ -323,6 +397,9 @@ export class SnackbarService {
         );
     }
 
+    /**
+     * Shows an error snackbar with current settings.
+     */
     public showError() {
         this.snackbarService.showError(
           'This is an error message!',
@@ -332,6 +409,9 @@ export class SnackbarService {
         );
     }
 
+    /**
+     * Shows an info snackbar with current settings.
+     */
     public showInfo() {
         this.snackbarService.showInfo(
           'This is an info message!',
@@ -339,6 +419,9 @@ export class SnackbarService {
         );
     }
 
+    /**
+     * Shows a warning snackbar with current settings.
+     */
     public showWarning() {
         this.snackbarService.showWarning(
           'This is a warning message!',
@@ -347,51 +430,119 @@ export class SnackbarService {
     }
 }
 
+/**
+ * Snackbar vertical position.
+ * - 'top': Snackbar appears at the top of the viewport
+ * - 'bottom': Snackbar appears at the bottom of the viewport
+ */
 export type SnackbarPosition = 'top' | 'bottom';
+
+/**
+ * Snackbar type for styling and icon.
+ * - 'success': Green, checkmark icon
+ * - 'error': Red, error icon
+ * - 'info': Blue, info icon
+ * - 'warning': Yellow, warning icon
+ */
 export type SnackbarType = 'success' | 'error' | 'info' | 'warning';
 
+/**
+ * Configuration options for the snackbar.
+ */
 export interface SnackbarConfig {
+    /** Whether the snackbar can be dismissed by the user. */
     dismissible?: boolean;
-    duration?: number; // in milliseconds
+    /** Duration in milliseconds before auto-dismiss. */
+    duration?: number;
+    /** Vertical position of the snackbar. */
     position?: SnackbarPosition;
 }
 
+/**
+ * Data for the currently displayed snackbar.
+ */
 export interface SnackbarData {
+    /** Message to display in the snackbar. */
     message: string;
+    /** Type of snackbar (affects color and icon). */
     type: SnackbarType;
+    /** Optional label for the action button. */
     actionLabel?: string;
+    /** Optional callback for the action button. */
     actionCallback?: () => void;
 }
 
+/**
+ * Default configuration for the snackbar service.
+ */
 export const SNACKBAR_DEFAULT_CONFIG: SnackbarConfig = {
     dismissible: true,
     duration: 3_000,
     position: 'bottom',
 };
 
+/**
+ * Injectable service for managing snackbar state and display.
+ * Provides methods to show and dismiss snackbars of various types.
+ */
 @Injectable({ providedIn: 'root' })
 export class SnackbarService {
+    /** Writable signal for snackbar data (null if hidden). */
     private readonly _snackbar: WritableSignal<SnackbarData | null> = signal<SnackbarData | null>(null);
+    /** Readonly signal for snackbar data (null if hidden). */
     public readonly snackbar: Signal<SnackbarData | null> = this._snackbar.asReadonly();
+    /** Timeout handle for auto-dismiss. */
     private dismissTimeout: ReturnType<typeof setTimeout> | undefined;
+    /** Default configuration for snackbars. */
     private readonly config: SnackbarConfig = SNACKBAR_DEFAULT_CONFIG;
 
+    /**
+     * Shows a success snackbar.
+     * @param message Message to display
+     * @param overrides Optional config overrides
+     * @param actionLabel Optional label for action button
+     * @param actionCallback Optional callback for action
+     */
     public showSuccess(message: string, overrides?: Partial<SnackbarConfig>, actionLabel?: string, actionCallback?: () => void): void {
         this.show(message, 'success', overrides, actionLabel, actionCallback);
     }
 
+    /**
+     * Shows an error snackbar.
+     * @param message Message to display
+     * @param overrides Optional config overrides
+     * @param actionLabel Optional label for action button
+     * @param actionCallback Optional callback for action
+     */
     public showError(message: string, overrides?: Partial<SnackbarConfig>, actionLabel?: string, actionCallback?: () => void): void {
         this.show(message, 'error', overrides, actionLabel, actionCallback);
     }
 
+    /**
+     * Shows an info snackbar.
+     * @param message Message to display
+     * @param overrides Optional config overrides
+     * @param actionLabel Optional label for action button
+     * @param actionCallback Optional callback for action
+     */
     public showInfo(message: string, overrides?: Partial<SnackbarConfig>, actionLabel?: string, actionCallback?: () => void): void {
         this.show(message, 'info', overrides, actionLabel, actionCallback);
     }
 
+    /**
+     * Shows a warning snackbar.
+     * @param message Message to display
+     * @param overrides Optional config overrides
+     * @param actionLabel Optional label for action button
+     * @param actionCallback Optional callback for action
+     */
     public showWarning(message: string, overrides?: Partial<SnackbarConfig>, actionLabel?: string, actionCallback?: () => void): void {
         this.show(message, 'warning', overrides, actionLabel, actionCallback);
     }
 
+    /**
+     * Dismisses the currently visible snackbar.
+     */
     public dismiss(): void {
         this._snackbar.set(null);
         if (this.dismissTimeout) {
@@ -399,6 +550,14 @@ export class SnackbarService {
         }
     }
 
+    /**
+     * Shows a snackbar of the given type.
+     * @param message Message to display
+     * @param type Snackbar type
+     * @param overrides Optional config overrides
+     * @param actionLabel Optional label for action button
+     * @param actionCallback Optional callback for action
+     */
     private show(message: string, type: SnackbarType, overrides?: Partial<SnackbarConfig>, actionLabel?: string, actionCallback?: () => void): void {
         const finalConfig = { ...this.config, ...overrides };
         this._snackbar.set({ message, type, actionLabel, actionCallback });
@@ -410,3 +569,4 @@ export class SnackbarService {
         }, finalConfig.duration);
     }
 }
+
