@@ -1,21 +1,212 @@
-.starter-box {
-  text-align: center;
+.library-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
 
-  h1 {
-    color: var(--accent-color);
-    font-size: 2rem;
-    margin-bottom: 8px;
-  }
+:host {
+  --aden-bg: #0f0f0f;
+  --aden-surface: #1a1a1a;
+  --aden-border: #333333;
+  --aden-text: #e5e5e5;
+  --aden-muted: #888;
+  --aden-primary: #4ade80;
+}
 
-  p {
-    color: var(--text-muted);
-    font-size: 16px;
+.aden-btn {
+  background-color: var(--aden-surface);
+  color: var(--aden-text);
+  border: 1px solid var(--aden-border);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
 
-    code {
-      background: var(--bg-hover);
-      padding: 2px 6px;
-      border-radius: 4px;
-      color: var(--primary-white);
-    }
-  }
+.aden-btn:hover {
+  border-color: var(--aden-primary);
+  color: #fff;
+}
+
+.aden-snackbar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 320px;
+  padding: 12px 16px;
+  background-color: var(--aden-surface);
+  border: 1px solid var(--aden-border);
+  border-left: 4px solid var(--aden-primary);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 100;
+}
+
+.aden-snackbar.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.aden-snackbar.top {
+  top: 24px;
+  bottom: auto;
+}
+
+.aden-snackbar.bottom {
+  bottom: 24px;
+  top: auto;
+}
+
+.snackbar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(74, 222, 128, 0.1);
+  border-radius: 50%;
+  color: var(--aden-primary);
+  flex-shrink: 0;
+}
+
+.snackbar-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.snackbar-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.snackbar-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.snackbar-message {
+  font-size: 0.8rem;
+  color: var(--aden-muted);
+}
+
+.snackbar-action {
+  background: none;
+  border: none;
+  color: var(--aden-primary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.snackbar-action:hover {
+  color: #fff;
+}
+
+.snackbar-close {
+  background: none;
+  border: none;
+  color: var(--aden-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.snackbar-close:hover {
+  color: #fff;
+}
+
+.aden-snackbar.success {
+  border-left-color: #4ade80;
+}
+
+.aden-snackbar.error {
+  border-left-color: #ef4444;
+}
+
+.aden-snackbar.info {
+  border-left-color: #38bdf8;
+}
+
+.aden-snackbar.warning {
+  border-left-color: #facc15;
+}
+
+.aden-snackbar.success .snackbar-icon {
+  background-color: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+}
+
+.aden-snackbar.error .snackbar-icon {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.aden-snackbar.info .snackbar-icon {
+  background-color: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+}
+
+.aden-snackbar.warning .snackbar-icon {
+  background-color: rgba(250, 204, 21, 0.1);
+  color: #facc15;
+}
+
+.snackbar-demo-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.controls-button {
+  display: flex;
+  gap: 1rem
+}
+
+.snackbar-demo-controls label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.95rem;
+  color: var(--aden-muted);
+}
+
+.snackbar-demo-controls input[type="number"] {
+  width: 80px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--aden-border);
+  background: var(--aden-surface);
+  color: var(--aden-text);
+}
+
+.snackbar-demo-controls select {
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--aden-border);
+  background: var(--aden-surface);
+  color: var(--aden-text);
 }

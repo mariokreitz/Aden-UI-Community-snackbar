@@ -1,10 +1,85 @@
-<app-ui-playground [meta]="meta" [htmlCode]="codeHtml" [scssCode]="codeScss" [tsCode]="codeTs" [installCode]="installCode">
+<app-ui-playground [htmlCode]="codeHtml" [installCode]="installCode" [meta]="meta" [scssCode]="codeScss" [tsCode]="codeTs">
 
-  <!-- LIVE PREVIEW -->
-  <div class="starter-box">
-    <h1>Ready to create?</h1>
-    <p>Edit <code>my-contribution.component.ts</code> to start building.</p>
-  </div>
-  <!-- END LIVE PREVIEW -->
+	<div class="library-container">
+		<div class="snackbar-demo-controls">
+			<label>
+				Duration (ms):
+				<input (input)="setDuration($event)" [value]="duration()" max="10000" min="500" step="100" type="number">
+			</label>
+			<label>
+				Position:
+				<select (change)="setPosition($event)" [value]="position()">
+					<option value="bottom">Bottom</option>
+					<option value="top">Top</option>
+				</select>
+			</label>
+			<label>
+				<input (change)="setDismissible()" [checked]="dismissible()" type="checkbox">
+				Dismissible
+			</label>
+		</div>
+
+		<div class="controls-button">
+			<button (click)="showSuccess()" class="aden-btn">Show Success</button>
+			<button (click)="showError()" class="aden-btn">Show Error</button>
+			<button (click)="showInfo()" class="aden-btn">Show Info</button>
+			<button (click)="showWarning()" class="aden-btn">Show Warning</button>
+		</div>
+
+		@if (snackbar()) {
+			<div [class.bottom]="position() === 'bottom'"
+					 [class.error]="snackbar()?.type === 'error'"
+					 [class.info]="snackbar()?.type === 'info'"
+					 [class.show]="snackbar()"
+					 [class.success]="snackbar()?.type === 'success'"
+					 [class.top]="position() === 'top'"
+					 [class.warning]="snackbar()?.type === 'warning'"
+					 class="aden-snackbar">
+				<div class="snackbar-icon">
+					@if (snackbar()?.type === 'success') {
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+							<polyline points="20 6 9 17 4 12"></polyline>
+						</svg>
+					} @else if (snackbar()?.type === 'error') {
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+							<circle cx="12" cy="12" r="10"></circle>
+							<line x1="15" x2="9" y1="9" y2="15"></line>
+							<line x1="9" x2="15" y1="9" y2="15"></line>
+						</svg>
+					} @else if (snackbar()?.type === 'info') {
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+							<circle cx="12" cy="12" r="10"></circle>
+							<line x1="12" x2="12" y1="16" y2="12"></line>
+							<line x1="12" x2="12" y1="8" y2="8"></line>
+						</svg>
+					} @else if (snackbar()?.type === 'warning') {
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+							<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+							<line x1="12" x2="12" y1="9" y2="13"></line>
+							<line x1="12" x2="12" y1="17" y2="17"></line>
+						</svg>
+					}
+				</div>
+				<div class="snackbar-content">
+					<span class="snackbar-title">@if (snackbar()?.type === 'success') {
+						Success
+					} @else if (snackbar()?.type === 'error') {
+						Error
+					} @else if (snackbar()?.type === 'info') {
+						Info
+					} @else if (snackbar()?.type === 'warning') {
+						Warning
+					}</span>
+					<span class="snackbar-message">{{ snackbar()?.message }}</span>
+				</div>
+				@if (snackbar()?.actionLabel) {
+					<button (click)="undoSnackbar()" class="snackbar-action">{{ snackbar()?.actionLabel }}</button>
+				}
+				@if (dismissible()) {
+					<button (click)="dismissSnackbar()" class="snackbar-close">✕</button>
+				}
+			</div>
+		}
+	</div>
 
 </app-ui-playground>
